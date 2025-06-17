@@ -70,3 +70,8 @@ def on_forever():
         yPos = 0
     led.plot(xPos, yPos)
 basic.forever(on_forever)
+
+class Food():
+    def instanceFood():
+        pass
+    

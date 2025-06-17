@@ -75,3 +75,10 @@ basic.forever(function on_forever() {
     
     led.plot(xPos, yPos)
 })
+class Food {
+    public static instanceFood() {
+        
+    }
+    
+}
+
