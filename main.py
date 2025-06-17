@@ -4,11 +4,12 @@ class Food():
         y = randint(0, 4)
         if hasCleared == True:
             led.plot(x,y)
+            hasCleared = False
 
 
 def on_button_pressed_a():
     global xPos, hasCleared
-    hasCleared = True
+    
     xPos += -1
     basic.show_leds("""
         . . . . .
@@ -21,7 +22,7 @@ def on_button_pressed_a():
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def on_pin_pressed_p2():
-    global yPos
+    global yPos, hasCleared
     yPos += 1
     basic.show_leds("""
         . . . . .
@@ -30,11 +31,12 @@ def on_pin_pressed_p2():
         . . . . .
         . . . . .
         """)
+    hasCleared = True
 input.on_pin_pressed(TouchPin.P2, on_pin_pressed_p2)
 
 def on_button_pressed_b():
     global xPos, hasCleared
-    hasCleared = True
+    
     xPos += 1
     basic.show_leds("""
         . . . . .
@@ -48,7 +50,6 @@ input.on_button_pressed(Button.B, on_button_pressed_b)
 
 def on_logo_pressed():
     global yPos, hasCleared
-    hasCleared = True
     yPos += -1
     basic.show_leds("""
         . . . . .

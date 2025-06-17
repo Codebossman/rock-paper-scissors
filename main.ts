@@ -1,9 +1,11 @@
 class Food {
     public instanceFood() {
+        let hasCleared: boolean;
         let x = randint(0, 4)
         let y = randint(0, 4)
         if (hasCleared == true) {
             led.plot(x, y)
+            hasCleared = false
         }
         
     }
@@ -12,7 +14,6 @@ class Food {
 
 input.onButtonPressed(Button.A, function on_button_pressed_a() {
     
-    hasCleared = true
     xPos += -1
     basic.showLeds(`
         . . . . .
@@ -33,10 +34,10 @@ input.onPinPressed(TouchPin.P2, function on_pin_pressed_p2() {
         . . . . .
         . . . . .
         `)
+    hasCleared = true
 })
 input.onButtonPressed(Button.B, function on_button_pressed_b() {
     
-    hasCleared = true
     xPos += 1
     basic.showLeds(`
         . . . . .
@@ -49,7 +50,6 @@ input.onButtonPressed(Button.B, function on_button_pressed_b() {
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function on_logo_pressed() {
     
-    hasCleared = true
     yPos += -1
     basic.showLeds(`
         . . . . .
