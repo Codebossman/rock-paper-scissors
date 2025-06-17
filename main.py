@@ -58,8 +58,16 @@ hasCleared = False
 
 def on_forever():
     global xPos, yPos
-    if xPos and yPos == 0 and True:
+    buildBorder()
+    if xPos and yPos :
         pass
+
+    led.plot(xPos, yPos)
+
+    
+basic.forever(on_forever)
+
+def buildBorder():
     if xPos > 4:
         xPos = 4
     if xPos < 0:
@@ -68,8 +76,6 @@ def on_forever():
         yPos = 4
     if yPos < 0:
         yPos = 0
-    led.plot(xPos, yPos)
-basic.forever(on_forever)
 
 class Food():
     def instanceFood():

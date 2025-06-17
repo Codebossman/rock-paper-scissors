@@ -53,10 +53,16 @@ let xPos = 0
 let hasCleared = false
 basic.forever(function on_forever() {
     
-    if (xPos && yPos == 0 && true) {
+    buildBorder()
+    if (xPos && yPos) {
         
     }
     
+    led.plot(xPos, yPos)
+})
+function buildBorder() {
+    let xPos: number;
+    let yPos: number;
     if (xPos > 4) {
         xPos = 4
     }
@@ -73,8 +79,8 @@ basic.forever(function on_forever() {
         yPos = 0
     }
     
-    led.plot(xPos, yPos)
-})
+}
+
 class Food {
     public static instanceFood() {
         let x = randint(0, 4)
