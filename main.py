@@ -1,3 +1,11 @@
+class Food():
+    def instanceFood(self):
+        x = randint(0, 4)
+        y = randint(0, 4)
+        if hasCleared == True:
+            led.plot(x,y)
+
+
 def on_button_pressed_a():
     global xPos, hasCleared
     hasCleared = True
@@ -55,15 +63,16 @@ input.on_logo_event(TouchButtonEvent.PRESSED, on_logo_pressed)
 yPos = 0
 xPos = 0
 hasCleared = False
+food = Food()
 
 def on_forever():
-    global xPos, yPos
+    global xPos, yPos, food
     buildBorder()
     if xPos and yPos :
         pass
 
     led.plot(xPos, yPos)
-
+    food.instanceFood()
     
 basic.forever(on_forever)
 
@@ -78,10 +87,3 @@ def buildBorder():
     if yPos < 0:
         yPos = 0
 
-class Food():
-    def instanceFood():
-        x = randint(0, 4)
-        y = randint(0, 4)
-        if hasCleared == True:
-            led.plot(x,y)
-    

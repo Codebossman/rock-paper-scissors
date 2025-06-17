@@ -1,3 +1,15 @@
+class Food {
+    public instanceFood() {
+        let x = randint(0, 4)
+        let y = randint(0, 4)
+        if (hasCleared == true) {
+            led.plot(x, y)
+        }
+        
+    }
+    
+}
+
 input.onButtonPressed(Button.A, function on_button_pressed_a() {
     
     hasCleared = true
@@ -51,6 +63,7 @@ input.onLogoEvent(TouchButtonEvent.Pressed, function on_logo_pressed() {
 let yPos = 0
 let xPos = 0
 let hasCleared = false
+let food = new Food()
 basic.forever(function on_forever() {
     
     buildBorder()
@@ -59,6 +72,7 @@ basic.forever(function on_forever() {
     }
     
     led.plot(xPos, yPos)
+    food.instanceFood()
 })
 function buildBorder() {
     
@@ -76,18 +90,6 @@ function buildBorder() {
     
     if (yPos < 0) {
         yPos = 0
-    }
-    
-}
-
-class Food {
-    public static instanceFood() {
-        let x = randint(0, 4)
-        let y = randint(0, 4)
-        if (hasCleared == true) {
-            led.plot(x, y)
-        }
-        
     }
     
 }
