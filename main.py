@@ -73,5 +73,8 @@ basic.forever(on_forever)
 
 class Food():
     def instanceFood():
-        pass
+        x = randint(0, 4)
+        y = randint(0, 4)
+        if hasCleared == True:
+            led.plot(x,y)
     

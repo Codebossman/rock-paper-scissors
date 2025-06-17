@@ -77,6 +77,11 @@ basic.forever(function on_forever() {
 })
 class Food {
     public static instanceFood() {
+        let x = randint(0, 4)
+        let y = randint(0, 4)
+        if (hasCleared == true) {
+            led.plot(x, y)
+        }
         
     }
     
