@@ -61,8 +61,7 @@ basic.forever(function on_forever() {
     led.plot(xPos, yPos)
 })
 function buildBorder() {
-    let xPos: number;
-    let yPos: number;
+    
     if (xPos > 4) {
         xPos = 4
     }

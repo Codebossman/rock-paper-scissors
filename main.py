@@ -68,6 +68,7 @@ def on_forever():
 basic.forever(on_forever)
 
 def buildBorder():
+    global xPos, yPos
     if xPos > 4:
         xPos = 4
     if xPos < 0:
