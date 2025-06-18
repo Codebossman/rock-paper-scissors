@@ -1,10 +1,8 @@
 class Food():
-    def instanceFood(self):
+    def createFood(self):
         x = randint(0, 4)
         y = randint(0, 4)
-        if hasCleared == True:
-            led.plot(x,y)
-            hasCleared = False
+        led.plot(x,y)
 
 
 def on_button_pressed_a():
@@ -41,15 +39,21 @@ yPos = 0
 xPos = 0
 hasCleared = False
 food = Food()
+foodPlotted = False
 
 def on_forever():
-    global xPos, yPos, food
+    global xPos, yPos, food, foodPlotted
+    
     buildBorder()
     if xPos and yPos :
         pass
 
     led.plot(xPos, yPos)
-    food.instanceFood()
+    if foodPlotted == False:
+        food.createFood()
+        foodPlotted = True
+    
+    
     
 basic.forever(on_forever)
 

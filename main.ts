@@ -1,13 +1,8 @@
 class Food {
-    public instanceFood() {
-        let hasCleared: boolean;
+    public createFood() {
         let x = randint(0, 4)
         let y = randint(0, 4)
-        if (hasCleared == true) {
-            led.plot(x, y)
-            hasCleared = false
-        }
-        
+        led.plot(x, y)
     }
     
 }
@@ -36,6 +31,7 @@ let yPos = 0
 let xPos = 0
 let hasCleared = false
 let food = new Food()
+let foodPlotted = false
 basic.forever(function on_forever() {
     
     buildBorder()
@@ -44,7 +40,11 @@ basic.forever(function on_forever() {
     }
     
     led.plot(xPos, yPos)
-    food.instanceFood()
+    if (foodPlotted == false) {
+        food.createFood()
+        foodPlotted = true
+    }
+    
 })
 function buildBorder() {
     
