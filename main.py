@@ -11,54 +11,30 @@ def on_button_pressed_a():
     global xPos, hasCleared
     
     xPos += -1
-    basic.show_leds("""
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        """)
-    hasCleared = True
+    clearScreen()
+    
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def on_pin_pressed_p2():
     global yPos, hasCleared
     yPos += 1
-    basic.show_leds("""
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        """)
-    hasCleared = True
+    clearScreen()
+    
 input.on_pin_pressed(TouchPin.P2, on_pin_pressed_p2)
 
 def on_button_pressed_b():
     global xPos, hasCleared
     
     xPos += 1
-    basic.show_leds("""
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        """)
-    hasCleared = True
+    clearScreen()
+    
 input.on_button_pressed(Button.B, on_button_pressed_b)
 
 def on_logo_pressed():
     global yPos, hasCleared
     yPos += -1
-    basic.show_leds("""
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        """)
-    hasCleared = True
+    clearScreen()
+    
 input.on_logo_event(TouchButtonEvent.PRESSED, on_logo_pressed)
 
 yPos = 0
@@ -88,3 +64,14 @@ def buildBorder():
     if yPos < 0:
         yPos = 0
 
+def clearScreen():
+    global hasCleared
+    
+    basic.show_leds("""
+            . . . . .
+            . . . . .
+            . . . . .
+            . . . . .
+            . . . . .
+            """)
+    hasCleared = True
