@@ -1,81 +1,72 @@
-class Food():
+from microbit import *
+
+class Food:
+    def __init__(self):
+        self.x = None
+        self.y = None
+
     def createFood(self):
-        x = randint(0, 4)
-        y = randint(0, 4)
-        led.plot(x,y)
+        self.x = randint(0, 4)
+        self.y = randint(0, 4)
 
+    def drawFood(self):
+        if self.x is not None and self.y is not None:
+            led.plot(self.x, self.y)
 
-def on_button_pressed_a():
-    global xPos, hasCleared
-    
-    xPos += -1
-    clearScreen()
-    
-input.on_button_pressed(Button.A, on_button_pressed_a)
-
-def on_pin_pressed_p2():
-    global yPos, hasCleared
-    yPos += 1
-    clearScreen()
-    
-input.on_pin_pressed(TouchPin.P2, on_pin_pressed_p2)
-
-def on_button_pressed_b():
-    global xPos, hasCleared
-    
-    xPos += 1
-    clearScreen()
-    
-input.on_button_pressed(Button.B, on_button_pressed_b)
-
-def on_logo_pressed():
-    global yPos, hasCleared
-    yPos += -1
-    clearScreen()
-    
-input.on_logo_event(TouchButtonEvent.PRESSED, on_logo_pressed)
-
-yPos = 0
+# --- Game State ---
 xPos = 0
-hasCleared = False
+yPos = 0
 food = Food()
 foodPlotted = False
+updateRequired = True  # Start with initial draw
 
-def on_forever():
-    global xPos, yPos, food, foodPlotted
-    
-    buildBorder()
-    if xPos and yPos :
-        pass
+# --- Input Events ---
+def on_button_pressed_a():
+    global xPos, updateRequired
+    xPos = max(0, xPos - 1)
+    updateRequired = True
 
+def on_button_pressed_b():
+    global xPos, updateRequired
+    xPos = min(4, xPos + 1)
+    updateRequired = True
+
+def on_pin_pressed_p2():
+    global yPos, updateRequired
+    yPos = min(4, yPos + 1)
+    updateRequired = True
+
+def on_logo_pressed():
+    global yPos, updateRequired
+    yPos = max(0, yPos - 1)
+    updateRequired = True
+
+input.on_button_pressed(Button.A, on_button_pressed_a)
+input.on_button_pressed(Button.B, on_button_pressed_b)
+input.on_pin_pressed(TouchPin.P2, on_pin_pressed_p2)
+input.on_logo_event(TouchButtonEvent.PRESSED, on_logo_pressed)
+
+# --- Draw Only on Update ---
+def draw():
+    basic.clear_screen()
+    food.drawFood()
     led.plot(xPos, yPos)
-    if foodPlotted == False:
+
+# --- Game Loop ---
+def on_forever():
+    global foodPlotted, updateRequired
+
+    if not foodPlotted:
         food.createFood()
         foodPlotted = True
-    
-    
-    
+        updateRequired = True
+
+    if xPos == food.x and yPos == food.y:
+        foodPlotted = False
+        updateRequired = True
+
+    if updateRequired:
+        draw()
+        updateRequired = False
+
 basic.forever(on_forever)
-
-def buildBorder():
-    global xPos, yPos
-    if xPos > 4:
-        xPos = 4
-    if xPos < 0:
-        xPos = 0
-    if yPos > 4:
-        yPos = 4
-    if yPos < 0:
-        yPos = 0
-
-def clearScreen():
-    global hasCleared
-    
-    basic.show_leds("""
-            . . . . .
-            . . . . .
-            . . . . .
-            . . . . .
-            . . . . .
-            """)
-    hasCleared = True
