@@ -23,6 +23,8 @@ class Food {
 //  --- Game State ---
 let xPos = 0
 let yPos = 0
+let movingHorizontal = false
+let movingVertical = true
 let food = new Food()
 let foodPlotted = false
 let updateRequired = true
@@ -30,22 +32,21 @@ let updateRequired = true
 //  --- Input Events ---
 input.onButtonPressed(Button.A, function on_button_pressed_a() {
     
-    xPos = Math.max(0, xPos - 1)
     updateRequired = true
+    movingHorizontal = false
 })
 input.onButtonPressed(Button.B, function on_button_pressed_b() {
     
-    xPos = Math.min(4, xPos + 1)
     updateRequired = true
+    movingHorizontal = true
 })
 input.onPinPressed(TouchPin.P2, function on_pin_pressed_p2() {
     
-    yPos = Math.min(4, yPos + 1)
     updateRequired = true
+    movingVertical = false
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function on_logo_pressed() {
     
-    yPos = Math.max(0, yPos - 1)
     updateRequired = true
 })
 //  --- Draw Only on Update ---
@@ -72,6 +73,22 @@ basic.forever(function on_forever() {
     if (updateRequired) {
         draw()
         updateRequired = false
+    }
+    
+    if (movingHorizontal) {
+        xPos = Math.min(4, xPos + 1)
+        basic.pause(100)
+    } else {
+        xPos = Math.min(4, xPos - 1)
+        basic.pause(100)
+    }
+    
+    if (movingVertical) {
+        yPos = Math.min(4, xPos + 1)
+        basic.pause(100)
+    } else {
+        xPos = Math.min(4, xPos - 1)
+        basic.pause(100)
     }
     
 })

@@ -16,29 +16,34 @@ class Food:
 # --- Game State ---
 xPos = 0
 yPos = 0
+movingHorizontal = False
+movingVertical = True
 food = Food()
 foodPlotted = False
 updateRequired = True  # Start with initial draw
 
 # --- Input Events ---
 def on_button_pressed_a():
-    global xPos, updateRequired
-    xPos = max(0, xPos - 1)
+    global xPos, updateRequired, movingHorizontal
+    
     updateRequired = True
+    movingHorizontal = False
 
 def on_button_pressed_b():
-    global xPos, updateRequired
-    xPos = min(4, xPos + 1)
+    global xPos, updateRequired, movingHorizontal
+    
     updateRequired = True
+    movingHorizontal = True
 
 def on_pin_pressed_p2():
-    global yPos, updateRequired
-    yPos = min(4, yPos + 1)
+    global yPos, updateRequired, movingVertical
+    
     updateRequired = True
+    movingVertical = False
 
 def on_logo_pressed():
-    global yPos, updateRequired
-    yPos = max(0, yPos - 1)
+    global yPos, updateRequired, movingVertical
+    
     updateRequired = True
 
 input.on_button_pressed(Button.A, on_button_pressed_a)
@@ -54,7 +59,7 @@ def draw():
 
 # --- Game Loop ---
 def on_forever():
-    global foodPlotted, updateRequired
+    global xPos, yPos,foodPlotted, updateRequired, movingVertical, movingHorizontal
 
     if not foodPlotted:
         food.createFood()
@@ -69,4 +74,16 @@ def on_forever():
         draw()
         updateRequired = False
 
+    if movingHorizontal:
+        xPos = min(4, xPos + 1)
+        basic.pause(100)
+    else:
+        xPos = min(4, xPos - 1)
+        basic.pause(100)
+    if movingVertical:
+        yPos = min(4, xPos + 1)
+        basic.pause(100)
+    else:
+        xPos = min(4, xPos - 1)
+        basic.pause(100)        
 basic.forever(on_forever)
